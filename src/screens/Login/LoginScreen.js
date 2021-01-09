@@ -9,7 +9,6 @@ import {
   FormButton,
   FormInput
 } from '../../components/';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -38,7 +37,6 @@ const LoginScreen = () => {
         labelStyle={styles.navButtonText}
         buttonStyle={{ backgroundColor: 'transparent' }}
       />
-      <Icon name="arrow-left" size={30} color="#4F8EF7" />
     </View>
   );
 };
