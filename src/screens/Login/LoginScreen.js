@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,10 @@ import {
   FormButton,
   FormInput
 } from '../../components/';
+import { AuthContext } from '../../navigation/AuthProvider';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,11 +33,13 @@ const LoginScreen = () => {
       <FormButton
         text={'L O G I N'}
         labelStyle={styles.loginButtonLabel}
+        onPress={() => login(email, password)}
       />
       <FormButton
         text='New user? Join here'
         labelStyle={styles.navButtonText}
         buttonStyle={{ backgroundColor: 'transparent' }}
+        onPress={() => navigation.navigate('Signup')}
       />
     </View>
   );
