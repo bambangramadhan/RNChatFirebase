@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { FormButton } from '../../components/FormButton';
 import { AuthContext } from '../../navigation/AuthProvider';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
@@ -12,8 +12,12 @@ const HomeScreen = () => {
       <Text>{"All chat rooms will be listed here"}</Text>
       <Text>{user.id}</Text>
       <FormButton
-        text={"LogOut"}
+        text={"Log Out"}
         onPress={() => logout()}
+      />
+      <FormButton
+        text={'Add Room'}
+        onPress={() => navigation.navigate('AddRoom')}
       />
     </View>
   )
