@@ -6,11 +6,12 @@ import {
   TextInput,
   Dimensions
 } from 'react-native';
+import Providers from './src/navigation/';
 import LoginScreen from './src/screens/Login/LoginScreen';
 
 const App = () => {
   return (
-    <LoginScreen />
+    <Providers />
   );
 };
 
