@@ -8,11 +8,12 @@ import {
 
 import { width, height } from '../helpers/Dimensions';
 
-const FormButton = ({ text, labelStyle, buttonStyle }) => {
+const FormButton = ({ text, labelStyle, buttonStyle, ...rest }) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={[styles.button, buttonStyle]}
+        {...rest}
       >
         <Text style={labelStyle}>
           {text}
