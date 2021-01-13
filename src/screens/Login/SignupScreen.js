@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
   StyleSheet
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
   FormButton,
   FormInput
 } from '../../components/';
+import { AuthContext } from '../../navigation/AuthProvider';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-const SignupScreen = () => {
+const SignupScreen = ({ navigation }) => {
+  const { register } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -32,8 +35,15 @@ const SignupScreen = () => {
       <FormButton
         text={'Sign Up'}
         labelStyle={styles.loginButtonLabel}
+        onPress={() => register(email, password)}
       />
-      <Icon name="arrow-left" size={30} color="#4F8EF7" />
+      <Icon
+        style={{ marginTop: 10 }}
+        name="arrow-left"
+        size={25}
+        color="#4F8EF7"
+        onPress={() => navigation.goBack()}
+      />
     </View>
   );
 };
