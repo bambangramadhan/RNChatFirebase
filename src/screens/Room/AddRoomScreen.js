@@ -1,35 +1,51 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import IconButton from 'react-native-vector-icons/AntDesign';
+import firestore from '@react-native-firebase/firestore';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { FormButton, FormInput } from '../../components/'
 
 const AddRoomScreen = ({ navigation }) => {
   const [roomName, setRoomName] = useState('');
+  const handleButtonPress = () => {
+    if (roomName.length > 0) {
+      firestore()
+        .collection('THREADS')
+        .add({
+          name: roomName
+        })
+        .then((v) => {
+          navigation.navigate('Home');
+        })
+        .catch((err) => {
+          console.log('err', err);
+        });
+    };
+  };
 
   return (
     <View style={styles.rootContainer}>
       <View style={styles.closeButtonContainer}>
-        <IconButton
-          icon='closecircle'
+        <Icon
+          name='close-circle'
           size={36}
           color='#6646ee'
           onPress={() => navigation.goBack()}
         />
       </View>
       <View style={styles.innerContainer}>
-        <Title style={styles.title}>{"Create a new chat room"}</Title>
+        <Text style={styles.title}>{"Create a new chat room"}</Text>
         <FormInput
           labelName={'Room Name'}
           value={roomName}
-          onChangeText={text => setRoomName(text)}
+          onChangeText={(text) => setRoomName(text)}
           clearButtonMode='while-editing'
         />
         <FormButton
-          title='Create'
+          text='Create'
           modeValue='contained'
           labelStyle={styles.buttonLabel}
-          onPress={() => handleButtonPress()}
+          onPress={handleButtonPress}
           disabled={roomName.length === 0}
         />
       </View>
@@ -43,7 +59,7 @@ const styles = StyleSheet.create({
   },
   closeButtonContainer: {
     position: 'absolute',
-    top: 30,
+    top: 0,
     right: 0,
     zIndex: 1
   },
@@ -57,7 +73,8 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   buttonLabel: {
-    fontSize: 22
+    fontSize: 22,
+    color: '#fff'
   }
 });
 
