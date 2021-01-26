@@ -9,12 +9,22 @@ import {
   FormButton,
   FormInput
 } from '../../components/';
+import auth from '@react-native-firebase/auth';
 import { AuthContext } from '../../navigation/AuthProvider';
 
 const LoginScreen = ({ navigation }) => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const [password, setPassword] = useState('');
+
+  const signIn = async (email, password) => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      setError(error.message)
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -33,7 +43,7 @@ const LoginScreen = ({ navigation }) => {
       <FormButton
         text={'L O G I N'}
         labelStyle={styles.loginButtonLabel}
-        onPress={() => login(email, password)}
+        onPress={() => signIn(email, password)}
       />
       <FormButton
         text='New user? Join here'
@@ -41,6 +51,7 @@ const LoginScreen = ({ navigation }) => {
         buttonStyle={{ backgroundColor: 'transparent' }}
         onPress={() => navigation.navigate('Signup')}
       />
+      <Text style={styles.errorMessage}>{error}</Text>
     </View>
   );
 };
@@ -63,6 +74,12 @@ const styles = StyleSheet.create({
   navButtonText: {
     fontSize: 16,
     color: 'purple'
+  },
+  errorMessage: {
+    fontSize: 15,
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 30
   }
 });
 
