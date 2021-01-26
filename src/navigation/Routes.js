@@ -12,27 +12,32 @@ const Routes = () => {
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
-
-  const onAuthStateChanged = (user) => {
-    setUser(user);
-    setLoading(false);
-    if (initializing) {
-      setInitializing(false);
-    };
-  };
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+        setInitializing(true);
+        setLoading(false);
+      } else {
+        setInitializing(false);
+        setLoading(false);
+      }
+    })
+  }, [])
 
   // if (loading) {
   //   return <Loading />
-  // }
-
+  // } else {
   return (
     <NavigationContainer>
-      <AuthStack />
+      {initializing ?
+        <HomeStack />
+        :
+        <AuthStack />
+      }
     </NavigationContainer>
   )
+  // }
+
 };
 
 export default Routes;
