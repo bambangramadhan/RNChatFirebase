@@ -28,7 +28,7 @@ const ChatApp = () => {
         options={({ navigation }) => ({
           headerRight: () => (
             <IconButton
-              icon='message-plus'
+              name='message-plus'
               size={28}
               color='#ffffff'
               onPress={() => navigation.navigate('AddRoom')}
