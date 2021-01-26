@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 
-import { FormButton } from '../../components/FormButton';
+import { FormButton } from '../../components/';
 import { AuthContext } from '../../navigation/AuthProvider';
 
 const HomeScreen = ({ navigation }) => {
@@ -10,7 +10,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text>{"Home Screen"}</Text>
       <Text>{"All chat rooms will be listed here"}</Text>
-      <Text>{user.id}</Text>
+      <Text style={styles.userID}>{user?.uid === undefined ? 'Anonymous' : user.uid}</Text>
       <FormButton
         text={"Log Out"}
         onPress={() => logout()}
@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: "#F5F5F5"
+  },
+  userID: {
+    fontSize: 15,
+    color: 'blue'
   }
-})
+});
+
 export default HomeScreen;
